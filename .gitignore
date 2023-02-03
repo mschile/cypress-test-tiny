@@ -1,0 +1,6 @@
+mochawesome-report/
+node_modules/
+report/
+cypress/videos
+.DS_Store
+cypress/screenshots

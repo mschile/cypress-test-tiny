@@ -4,8 +4,5 @@
     "lib": ["es5", "dom"],
     "types": ["cypress", "node"]
   },
-  "include": [
-    "cypress/e2e/*.ts",
-    "cypress/e2e/**/*.ts",
-  ]
+  "include": ["**/*.ts"]
 }

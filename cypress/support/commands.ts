@@ -1,3 +1,9 @@
+declare namespace Cypress {
+  interface Chainable<Subject = any> {
+    customContains(): Chainable<null>
+  }
+}
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,3 +29,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('customContains', () => {
+  cy.contains('not found', { timeout: 5000 })
+})

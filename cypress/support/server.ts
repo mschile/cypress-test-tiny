@@ -9,8 +9,7 @@ const requestListener = function (req, res) {
       res.writeHead(302, {
         'Location': '/redirect',
         'Content-Type': 'text/html',
-        'Set-Cookie': 'SESSION_ID=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; Max-Age=0',
-        'Set-Cookie': 'SESSION_ID=new_cookie_value',
+        'Set-Cookie': ['SESSION_ID=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; Max-Age=0', 'SESSION_ID=new_cookie_value'],
       })
       res.end()
       break

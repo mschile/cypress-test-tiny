@@ -9,7 +9,7 @@
     "cypress:version": "cypress version",
     "cypress:info": "cypress info",
     "cypress:cache:list": "cypress cache list",
-    "start": "node cypress/support/server.js"
+    "start": "node cypress/support/server.ts"
   },
   "keywords": [],
   "author": "Cypress-io",

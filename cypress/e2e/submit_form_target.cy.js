@@ -8,4 +8,8 @@ it('intercepts reload', () => {
   // })
 
   cy.visit('/')
+
+  cy.get('#submit').click()
+
+  cy.contains('Form Submitted Page')
 })

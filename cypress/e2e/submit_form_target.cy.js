@@ -9,6 +9,23 @@ it('intercepts reload', () => {
 
   cy.visit('/')
 
+  // TODO: Uncomment to fix the framebusting
+  // before clicking submit, stub document.createElement
+  // and its property 'target' to not allow '_blank' (new tab) or '_top' (frame-busting)
+  // and always have it at '_self' (current frame)
+  // cy.document().then((doc) => {
+  //   const create = doc.createElement.bind(doc)
+  //   cy.stub(doc, 'createElement').callsFake((name) => {
+  //     if (name === 'form') {
+  //       const form = create('form')
+  //       cy.stub(form, 'target').value('_self')
+  //       return form
+  //     } else {
+  //       return create(name)
+  //     }
+  //   })
+  // })
+
   cy.get('#submit').click()
 
   cy.contains('Form Submitted Page')

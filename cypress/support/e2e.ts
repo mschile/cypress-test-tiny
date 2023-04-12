@@ -18,3 +18,23 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+before(() => {
+  cy.log('before in global')
+})
+
+beforeEach(() => {
+  cy.log('before each in global')
+})
+
+after(() => {
+  cy.log('after in global')
+})
+
+afterEach(() => {
+  cy.log('after each in global')
+})
+
+it ('shows all runnables global', () => {
+  cy.log('test in global')
+})

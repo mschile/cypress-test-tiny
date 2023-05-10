@@ -5,5 +5,5 @@ workflows:
   build:
     jobs:
       - cypress/run:
-          cypress-command: 'npm run cypress:run'
+          cypress-command: 'npm run wait-on && npm run cypress:run'
           start-command: 'npm run start'

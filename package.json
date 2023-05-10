@@ -4,7 +4,7 @@
   "description": "Small project for quickly testing Cypress.io test runner",
   "scripts": {
     "wait-on": "wait-on http://localhost:8080 -v",
-    "cypress:run": "npm run wait-on && cypress run",
+    "cypress:run": "cypress run",
     "cypress:open": "cypress open",
     "cypress:verify": "cypress verify",
     "cypress:version": "cypress version",

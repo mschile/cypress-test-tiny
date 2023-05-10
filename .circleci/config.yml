@@ -5,7 +5,5 @@ workflows:
   build:
     jobs:
       - cypress/run:
-          # split specs across machines
-          # record results with Cypress Cloud
           cypress-command: 'npm run cypress:run'
           start-command: 'npm run start'

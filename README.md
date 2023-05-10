@@ -8,5 +8,6 @@ Build status | Name | Description
 
 ```
 npm i
-npm start & npm run cypress:run
+npm start
+npm run cypress:run
 ```

@@ -9,7 +9,8 @@
     "cypress:version": "cypress version",
     "cypress:info": "cypress info",
     "cypress:cache:list": "cypress cache list",
-    "list-videos": "ls -l cypress/videos"
+    "list-videos": "ls -l cypress/videos",
+    "start": "node cypress/support/server.js"
   },
   "keywords": [],
   "author": "Cypress-io",

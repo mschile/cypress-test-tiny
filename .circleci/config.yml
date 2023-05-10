@@ -7,5 +7,5 @@ workflows:
       - cypress/run:
           # split specs across machines
           # record results with Cypress Cloud
-          cypress-command: 'npm run cypress:run'
+          cypress-command: 'wait-on http://localhost:8080 -v && cypress run --spec cypress/e2e/spec.cy.js'
           start-command: 'npm run start'

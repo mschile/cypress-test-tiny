@@ -2,7 +2,14 @@
 
 > Tiny Cypress E2E test case
 
-```js
-npm i
-npx cypress open or npx cypress run
+Remote server
 ```
+npm i
+npx cypress run --headed --spec cypress/e2e/spec-remote.cy.js
+```
+
+Local server
+```
+npm i
+npm start
+npx cypress run --headed --spec cypress/e2e/spec-local.cy.js

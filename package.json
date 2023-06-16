@@ -9,15 +9,19 @@
     "cypress:version": "cypress version",
     "cypress:info": "cypress info",
     "cypress:cache:list": "cypress cache list",
-    "list-videos": "ls -l cypress/videos"
+    "start": "react-scripts start",
+    "start-server-and-test": "start-server-and-test start http://localhost:3000 cypress:open"
   },
   "keywords": [],
   "author": "Cypress-io",
   "license": "ISC",
   "devDependencies": {
+    "cypress": "^12.14.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "^5.0.1",
+    "start-server-and-test": "^2.0.0",
     "typescript": "^4.9.5"
   },
   "repository": {

@@ -1,0 +1,11 @@
+.App {
+	font-family: sans-serif;
+	text-align: center;
+}
+
+.home,
+.about,
+.portfolio-details {
+	height: 100vh;
+	width: auto;
+}

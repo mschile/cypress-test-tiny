@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Global Parent Fixture</title>
+</head>
+
+<body>
+  <div style="height: 100px; width: 100px;"></div>
+  <!-- <span class="foo">Foo</span> -->
+  <iframe style="left: 100px; top: 500px;" src="global_parent_definition_iframe.html" id="frame"></iframe>
+</body>
+<!-- <script>
+  // This is defined to create a global parent which
+  // can cause issues when calling win.parent later 
+  // since the win.parent is now this element
+  // https://github.com/cypress-io/cypress/issues/6412
+  var parent = document.querySelector(".foo")
+</script> -->
+
+</html>

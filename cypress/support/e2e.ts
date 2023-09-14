@@ -19,22 +19,30 @@ import './commands'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-before(() => {
-  cy.log('before in global')
-})
+// Cypress.on('log:added', (attrs) => {
+//   console.log('log:added', attrs.consoleProps)
+// })
 
-beforeEach(() => {
-  cy.log('before each in global')
-})
+// Cypress.on('log:changed', (attrs) => {
+//   console.log('log:changed', attrs.consoleProps)
+// })
 
-after(() => {
-  cy.log('after in global')
-})
+// before(() => {
+//   cy.log('before in global')
+// })
 
-afterEach(() => {
-  cy.log('after each in global')
-})
+// beforeEach(() => {
+//   cy.log('before each in global')
+// })
 
-it ('shows all runnables global', () => {
-  cy.log('test in global')
-})
+// after(() => {
+//   cy.log('after in global')
+// })
+
+// afterEach(() => {
+//   cy.log('after each in global')
+// })
+
+// it ('shows all runnables global', () => {
+//   cy.log('test in global')
+// })

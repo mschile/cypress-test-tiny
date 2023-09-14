@@ -1,85 +1,43 @@
 /// <reference types="cypress" />
 
+const CustomError = class extends Error {
+  constructor(message) {
+    super(message)
+    this.name = 'CustomError'
+    this.message = {
+      code: 100,
+      message: 'Odoo Session Expired',
+      data: {
+        name: 'odoo.http.SessionExpiredException',
+      }
+    }
+  }
+}
+
 describe('error tests', () => {
   it('errors', () => {
-    cy.then(() => { throw new Error('error in test') })
-  })
-
-  it('fails with retry', { retries: 1 }, () => {
-    cy.then(() => { throw new Error('errors with retries') })
-  })
-
-  it('succeeds after retry', { retries: 1 }, () => {
-    if (Cypress.state('test').currentRetry() === 0) {
-      cy.then(() => { throw new Error('error on first attempt') })
-    }
-
-    cy.log('succeeded on second attempt')
-  })
-
-  context('before hook', () => {
-    before(() => {
-      cy.then(() => { throw new Error('error in before hook') })
-    })
-
-    it('errors in before hook', () => {
-      cy.log('before hook error should prevent this test from running')
+    cy.then(() => { 
+      throw new CustomError('Odoo Session Expired')
     })
   })
 
-  context('before each', () => {
-    beforeEach(() => {
-      cy.then(() => { throw new Error('error in before each hook') })
-    })
-
-    it('errors in before each hook', () => {
-      cy.log('before each hook error should prevent this test from running')
-    })
+  it('errors', () => {
+    cy.then(() => { throw 'string error' })
   })
 
-  context('after hook', () => {
-    after(() => {
-      cy.then(() => { throw new Error('error in after hook') })
-    })
-
-    it('errors in after hook', () => {
-      cy.log('after hook error should not affect this test')
-    })
+  it('errors', () => {
+    cy.then(() => { throw new URL('https://www.google.com') })
   })
 
-  context('after each', () => {
-    afterEach(() => {
-      cy.then(() => { throw new Error('error in after each hook') })
-    })
-
-    it('errors in after each hook', () => {
-      cy.log('after each hook error should not affect this test')
-    })
+  it('errors', () => {
+    cy.then(() => { throw 500 })
   })
 
-  context('assert error', () => {
-    it('fails', () => {
-      cy.on('fail', (err) => {
-        return false
-      })
-
-      expect(10).to.equal(20)
-    })
+  it('errors', () => {
+    cy.then(() => { throw false })
   })
 
-  context('uncaught exception error', () => {
-    it('fails and shows an error', () => {
-      cy.document().then((doc) => {
-        const el = doc.createElement('button')
-
-        el.innerText = `Don't click it!`
-        el.addEventListener('click', () => {
-          throw new Error('An error!')
-        })
-
-        doc.body.appendChild(el)
-      })
-      cy.get('button').click()
-    })
+  it('errors', () => {
+    cy.then(() => { throw Symbol('foo') })
   })
 })

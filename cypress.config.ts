@@ -1,13 +1,21 @@
 module.exports = {
   projectId: '9rttcd',
+  fixturesFolder: 'cypress/fixtures',
+  // port: 3001,
   e2e: {
-    setupNodeEvents(on, config) {},
+    supportFile: false,
   },
-
   component: {
+    experimentalSingleTabRunMode: true,
     devServer: {
-      framework: "create-react-app",
-      bundler: "webpack",
+      framework: 'react',
+      bundler: 'webpack',
+      webpackConfig: {
+        ...require('./webpack.config'),
+        devServer: {
+          port: 3005,
+        },
+      },
     },
   },
 };

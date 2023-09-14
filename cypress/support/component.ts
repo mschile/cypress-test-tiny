@@ -14,7 +14,7 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+// import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
@@ -25,15 +25,22 @@ import { mount } from 'cypress/react'
 // your custom command.
 // Alternatively, can be defined in cypress/support/component.d.ts
 // with a <reference path="./component" /> at the top of your spec.
-declare global {
-  namespace Cypress {
-    interface Chainable {
-      mount: typeof mount
-    }
-  }
-}
+// declare global {
+//   namespace Cypress {
+//     interface Chainable {
+//       mount: typeof mount
+//     }
+//   }
+// }
 
 Cypress.Commands.add('mount', mount)
+
+// Cypress.on('log:added', (attrs, log) => {
+//   console.log('log:added', attrs, log)
+// })
+// Cypress.on('log:changed', (attrs, log) => {
+//   console.log('log:changed', attrs, log)
+// })
 
 // Example use:
 // cy.mount(<MyComponent />)

@@ -14,7 +14,25 @@
 //
 //
 // -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
+Cypress.Commands.add('custom', { prevSubject: 'element'}, (subject, options) => {
+  const log = Cypress.log({
+    name: 'custom',
+    message: options,
+    consoleProps: () => {
+      return {
+        subject,
+        options,
+        'Test': undefined,
+        'Test2': 'okay',
+        fn: () => (console.log('okayyy'))
+      }
+    },
+  })
+  log.set({ $el: subject })
+  log.snapshot().end()
+
+  return subject
+ })
 //
 //
 // -- This is a dual command --

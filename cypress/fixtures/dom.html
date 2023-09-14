@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DOM</title>
+  </head>
+  <body>
+    <div style="height: 100px; width: 100px;"></div>
+    <span class="foo">Foo</span>
+    <span class="bar">Bar</span>
+    <iframe src="http://localhost:3500/test"></iframe>
+    <!-- <iframe src="https://example.cypress.io/commands/actions"></iframe> -->
+  </body>
+  <script>
+    Cypress.on('test:before:run', (attributes) => {
+      document.getElementsByClassName('foo')[0].innerHTML = 'Bar'
+    })
+    window.document.addEventListener('DOMContentLoaded', () => {
+      const controller = new AbortController();
+      const { signal } = controller;
+
+      window.fetch('https://jsonplaceholder.cypress.io/users', { signal }).then(response => response.text()).then((text) => {
+        document.getElementsByClassName('bar')[0].innerHTML = text
+      }).catch(e => {
+        console.warn(`error: ${e.message}`);
+      });
+
+      setTimeout(() => {
+        controller.abort()
+      }, 1000)
+    })
+  </script>
+</html>

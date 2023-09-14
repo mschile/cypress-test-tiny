@@ -1,4 +1,5 @@
 import React from 'react'
+import './Mars.module.css'
 
 export default class HelloMars extends React.Component {
   render() {

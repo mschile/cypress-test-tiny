@@ -1,16 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>DOM</title>
-  </head>
   <body>
-    <div style="height: 100px; width: 100px;"></div>
-    <span class="foo">Foo</span>
-    <span class="bar">Bar</span>
-    <iframe src="http://localhost:3500/test"></iframe>
-    <!-- <iframe src="https://example.cypress.io/commands/actions"></iframe> -->
-  </body>
-  <script>
+    <div id="dom">
+      <button id="button">Click me</button>
+      <div id="events"></div>
+    </div>
+    <script>
+      const events = [
+        'pointerover',
+        'pointerenter',
+        'pointerdown',
+        'pointerup',
+        'mouseover',
+        'mouseenter',
+        'mousedown',
+        'mouseup',
+        'click',
+        'contextmenu'
+      ]
+      
+      events.forEach((eventName) => {
+        document.getElementById('button').addEventListener(eventName, (e) => {
+          const text = document.getElementById('events').textContent
+          if (text.length === 0) {
+            document.getElementById('events').textContent += eventName;
+          } else if (text.length > 0) {
+            document.getElementById('events').textContent += `, ${eventName}`
+          }
+        });
+      })
 
-  </script>
+      document.getElementById('button').addEventListener('pointerover', (e) => {
+        document.getElementById('button').disabled = true
+      });
+    </script>
+  </body>
 </html>

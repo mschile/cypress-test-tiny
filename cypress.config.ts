@@ -2,13 +2,13 @@ const { defineConfig } = require('cypress')
 
 module.exports = defineConfig({
   e2e: {
-    setupNodeEvents(on, config) {},
-  },
-
-  component: {
-    devServer: {
-      framework: "create-react-app",
-      bundler: "webpack",
+    setupNodeEvents(on, config) {
+      on('task', {
+        log (message) {
+          console.log(message)
+          return null
+        }
+      })
     },
   },
-});
+})

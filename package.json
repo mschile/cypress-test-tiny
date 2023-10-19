@@ -9,15 +9,13 @@
     "cypress:version": "cypress version",
     "cypress:info": "cypress info",
     "cypress:cache:list": "cypress cache list",
-    "list-videos": "ls -l cypress/videos"
+    "start": "node cypress/support/server.js"
   },
   "keywords": [],
   "author": "Cypress-io",
   "license": "ISC",
   "devDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1",
+    "cypress": "^13.3.2",
     "typescript": "^4.9.5"
   },
   "repository": {

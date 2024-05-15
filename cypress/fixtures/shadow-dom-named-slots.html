@@ -1,0 +1,72 @@
+<html>
+  <template id="REAL-TODO">
+    <style>
+      :host {
+        display: block;
+        border: 1px solid black;
+        padding: 10px;
+      }
+      h1 {
+        font-family: sans-serif;
+        font-size: 24px;
+        color: red;
+      }
+      button {
+        font-family: sans-serif;
+        font-size: 16px;
+        margin: 0 10px 10px 0;
+      }
+    </style>
+    <h1>A <span></span> list</h1>
+    <ol>
+      <slot name="list"></slot>
+    </ol>
+</template>
+  <head>
+    <title>Shadow DOM Fixture</title>
+    <script>
+      customElements.define("real-todo", class extends HTMLElement {
+        connectedCallback(){
+          const button = (props) => Object.assign(document.createElement("button"),props);
+          this
+            .attachShadow({mode: "open", slotAssignment: "named" })
+            .append(
+              button({ innerHTML:"Food"   , onclick : e => this.showlist("food")   }),
+              button({ innerHTML:"Animals", onclick : e => this.showlist("animal") }),
+              document.getElementById(this.nodeName).content.cloneNode(true)
+            )
+
+          // Create an empty "constructed" stylesheet
+          const sheet = new CSSStyleSheet();
+          // Apply a rule to the sheet
+          sheet.replaceSync("h1 { color: blue; }");
+
+          this.shadowRoot.adoptedStyleSheets = [sheet];
+
+          this.showlist("animal");
+        }
+        showlist(list){
+          this.shadowRoot.querySelector("span").innerHTML = list;
+          let li = this.querySelectorAll('li')
+          for (const el of li) {
+            if (el.getAttribute('list').includes(list)) {
+              el.setAttribute("slot","list");
+            } else {
+              el.removeAttribute("slot");
+            }
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <real-todo id="todo">
+      <li list="animal">Cat</li>
+      <li list="animal">Dog</li>
+      <li list="food">Pie</li>
+      <li list="food">Beer</li>
+      <li list="food">Pizza</li>
+      <li list="animal,food">Chicken</li>
+    </real-todo>
+  </body>
+</html>

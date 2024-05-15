@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script>
+    const makeRequest = () => {
+      fetch(`profile.json`).then((response) => {
+        document.getElementById('output').innerText = 'done'
+      }).catch(() => {})
+    }
+
+    navigator.serviceWorker.register('service-worker.js')
+    .then((registration) => {
+      const serviceWorker = registration.installing || registration.waiting
+      if (serviceWorker) {
+        let controllerChangeCalled = false
+        navigator.serviceWorker.addEventListener('controllerchange', (e) => {
+          controllerChangeCalled = true
+          console.log('controllerchange event', e)
+          setTimeout(() => {
+            makeRequest()
+          }, 300)
+        })
+
+        serviceWorker.addEventListener('statechange', (e) => {
+          if (e.target.state === 'activated' && !controllerChangeCalled) {
+            console.log('service worker activated')
+            // service worker activated, reload page so it can intercept requests
+            location.reload()
+          }
+        })
+      } else {
+        makeRequest()
+      }
+    })
+  </script>
+</head>
+<body>
+  <h1>hi</h1>
+  <div id="output"></div>
+</body>
+</html>

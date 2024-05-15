@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shadow DOM Fixture</title>
+</head>
+<body>
+  <h1 id="document-header">Shadow DOM Fixture</h1>
+
+  <button id="add">Add Shadow DOM</button>
+  <div id="outer-immediate-host"></div>
+  <div id="outer-delayed-host"></div>
+  <div id="closed-host"></div>
+
+  <!-- Create a nested shadow dom that will be included in the node:added event -->
+  <!-- <script>
+    const nestedHost = document.createElement('div')
+    nestedHost.id = 'inner-immediate-host'
+    const nestedRoot = nestedHost.attachShadow({ mode: 'open' })
+    
+    nestedRoot.innerHTML = `<div id="immediate-shadow">
+      <p>Nested Shadow DOM content (immediate)</p>
+    </div>`
+
+    const host = document.getElementById('outer-immediate-host')
+    const root = host.attachShadow({ mode: 'open' })
+    root.appendChild(nestedHost)
+  </script> -->
+
+  <!-- Create a nested shadow dom that will trigger the shadow-root-pushed event -->
+  <script>
+    document.getElementById('add').addEventListener('click', () => {
+      const nestedHost = document.createElement('div')
+      nestedHost.id = 'inner-delayed-host'
+      const nestedRoot = nestedHost.attachShadow({ mode: 'open' })
+      
+      nestedRoot.innerHTML = `<div id="delayed-shadow">
+        <p>Nested Shadow DOM content (delayed)</p>
+      </div>`
+
+      const host = document.getElementById('outer-delayed-host')
+      const root = host.attachShadow({ mode: 'open' })
+      root.appendChild(nestedHost)
+    })
+  </script>
+
+  <!-- Create a closed shadow dom -->
+  <script>
+    const closedHost = document.getElementById('closed-host')
+    const closedRoot = closedHost.attachShadow({ mode: 'closed' })
+    closedRoot.innerHTML = `<div id="closed-shadow">
+      <p>Shadow DOM content (closed)</p>
+    </div>`
+  </script>
+
+  <!-- Create a custom element that uses the template for styling and includes a button to add an adopted stylesheet -->
+  <template id="example-component">
+    <style>
+      h1 {
+        font-family: sans-serif;
+        font-size: 24px;
+        color: red;
+      }
+    </style>
+    <h1 id="example-component-header">An example component</h1>
+    <button id="add-adopted-stylesheet">Add adopted stylesheet</button>
+  </template>
+  <script>
+    const sheet = new CSSStyleSheet()
+    sheet.replaceSync("h1 { color: green; }")
+
+    document.adoptedStyleSheets = [sheet]
+
+    const nestedHost = document.createElement('div')
+    nestedHost.id = 'inner-immediate-host'
+    const nestedRoot = nestedHost.attachShadow({ mode: 'open' })
+    
+    nestedRoot.innerHTML = `<div id="immediate-shadow">
+      <p>Nested Shadow DOM content (immediate)</p>
+    </div>`
+
+    const host = document.getElementById('outer-immediate-host')
+    const root = host.attachShadow({ mode: 'open' })
+    root.appendChild(nestedHost)
+    root.adoptedStyleSheets = [sheet]
+
+    customElements.define('example-component', class extends HTMLElement {
+      connectedCallback() {
+        const root = this.attachShadow({ mode: 'open' })
+        root.append(document.getElementById(this.nodeName.toLowerCase()).content.cloneNode(true))
+
+        root.getElementById('add-adopted-stylesheet').addEventListener('click', () => {
+          this.shadowRoot.adoptedStyleSheets = [sheet]
+        })
+      }
+    })
+  </script>
+
+  <example-component />
+</body>
+</html>

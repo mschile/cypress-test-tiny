@@ -1,0 +1,70 @@
+<html>
+  <template id="REAL-TODO">
+    <style>
+      :host {
+        display: block;
+        border: 1px solid black;
+        padding: 10px;
+      }
+      h1 {
+        font-family: sans-serif;
+        font-size: 16px;
+        margin: 0;
+      }
+      button {
+        font-family: sans-serif;
+        font-size: 16px;
+        margin: 0 10px 10px 0;
+      }
+      ol {
+        margin: 0;
+        padding: 0;
+      }
+      li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <h1>A <span></span> list</h1>
+    <ol>
+        <slot></slot>
+    </ol>
+</template>
+  <head>
+    <title>Shadow DOM Fixture</title>
+    <script>
+      customElements.define("real-todo", class extends HTMLElement {
+        constructor() {
+          super()
+        }
+        connectedCallback(){
+          const button = (props) => Object.assign(document.createElement("button"),props);
+          this
+            .append(
+              button({ innerHTML:"Food"   , onclick : e => this.showlist("food")   }),
+              button({ innerHTML:"Animals", onclick : e => this.showlist("animal") }),
+              document.getElementById(this.nodeName).content.cloneNode(true)
+            );
+
+          this.showlist("animal");
+        }
+        showlist(list){
+          this.querySelector("span").innerHTML = list;
+          const li = this.querySelectorAll(`li[list*="${list}"]`);
+          this.querySelector("slot").assign(...li);
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <real-todo id="todo" list="animal">
+      <li list="animal">Cat</li>
+      <li list="animal">Dog</li>
+      <li list="food">Pie</li>
+      <li list="food">Beer</li>
+      <li list="food">Pizza</li>
+      <li list="animal,food">Chicken</li>
+    </real-todo>
+  </body>
+</html>

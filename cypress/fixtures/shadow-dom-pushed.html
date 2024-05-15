@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shadow DOM Fixture</title>
+</head>
+<body>
+  <h1>Shadow DOM Fixture</h1>
+
+  <button id="add">Add Shadow DOM</button>
+  <div id="host"></div>
+  <div id="shadow-root"></div>
+
+  <script>
+    const host = document.getElementById('host')
+    const shadowRoot = host.attachShadow({ mode: 'closed' })
+    const span = document.createElement('span')
+    span.textContent = "I'm in the closed shadow DOM"
+    shadowRoot.appendChild(span)
+  </script>
+
+  <script>
+    document.getElementById('add').addEventListener('click', () => {
+      const rootEl = document.getElementById('shadow-root')
+      const root = rootEl.attachShadow({ mode: 'open' })
+
+      root.innerHTML = `<div id="in-shadow">
+        <p>Shadow DOM content</p>
+      </div>`
+    })
+  </script>
+</body>
+</html>

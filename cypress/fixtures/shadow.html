@@ -1,0 +1,12 @@
+<div id="host"></div>
+<span>I'm not in the shadow DOM</span>
+<script>
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("span { color: red; border: 2px dotted black;}");
+  const host = document.getElementById('host');
+  const shadowRoot = host.attachShadow({ mode: 'open' });
+  shadowRoot.adoptedStyleSheets = [sheet];
+  const span = document.createElement('span');
+  span.textContent = "I'm in the shadow DOM";
+  shadowRoot.appendChild(span);
+</script>

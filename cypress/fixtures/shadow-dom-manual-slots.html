@@ -1,0 +1,44 @@
+<html>
+  <template id="main">
+    <ol>
+      <slot></slot>
+    </ol>
+  </template>
+  <head>
+    <title>Shadow DOM Fixture</title>
+    <script>
+      customElements.define("todo-list", class extends HTMLElement {
+        connectedCallback(){
+          const button = (props) => Object.assign(document.createElement("button"), props)
+          const root = this.attachShadow({mode: "open", slotAssignment: "manual" })
+          const groceriesButton = button({ innerHTML: "Groceries", onclick: () => this.showList("grocery") })
+          const homeButton = button({ innerHTML: "Home", onclick: () => this.showList("home") })
+          root.append(groceriesButton, homeButton, document.getElementById("main").content.cloneNode(true))
+
+          let slots = this.shadowRoot.querySelectorAll("slot")
+          slots.forEach(slot => {
+            slot.addEventListener("slotchange", (e) => {
+              let nodes = slot.assignedNodes()
+              console.log(`Element in Slot "${slot.name}" changed to "${nodes.map((n) => n.innerHTML)}".`)
+            })
+          })
+        }
+
+        showList(list){
+          const li = this.querySelectorAll(`li[list="${list}"]`)
+          this.shadowRoot.querySelector("slot").assign(...li)
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <todo-list>
+      <li list="grocery">Spinach</li>
+      <li list="grocery">Olives</li>
+      <li list="home">Hammer</li>
+      <li list="grocery">Chicken</li>
+      <li list="home">Shelves</li>
+      <li list="home">Screws</li>
+    </todo-list>
+  </body>
+</html>

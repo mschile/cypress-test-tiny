@@ -1,38 +1,10 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <div id="dom">
-      <button id="button">Click me</button>
-      <div id="events"></div>
+    <div id="id2">
+      <div style="width: 0">
+        <p id="p" class="big">IN SECTION 2 </p>
+      </div>
     </div>
-    <script>
-      const events = [
-        'pointerover',
-        'pointerenter',
-        'pointerdown',
-        'pointerup',
-        'mouseover',
-        'mouseenter',
-        'mousedown',
-        'mouseup',
-        'click',
-        'contextmenu'
-      ]
-      
-      events.forEach((eventName) => {
-        document.getElementById('button').addEventListener(eventName, (e) => {
-          const text = document.getElementById('events').textContent
-          if (text.length === 0) {
-            document.getElementById('events').textContent += eventName;
-          } else if (text.length > 0) {
-            document.getElementById('events').textContent += `, ${eventName}`
-          }
-        });
-      })
-
-      document.getElementById('button').addEventListener('pointerover', (e) => {
-        document.getElementById('button').disabled = true
-      });
-    </script>
   </body>
 </html>

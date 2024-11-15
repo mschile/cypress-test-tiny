@@ -1,18 +1,9 @@
-import { test, expect } from '@playwright/test';
+// to run: npx playwright test --ui
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+import { test } from '@playwright/test';
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
+test('element to be visible', async ({ page }) => {
+  await page.goto('file:////Users/mschile/Projects/cypress-test-tiny/cypress/fixtures/dom.html');
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
-
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+  await page.getByRole('paragraph').click();
 });

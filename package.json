@@ -15,7 +15,10 @@
   "author": "Cypress-io",
   "license": "ISC",
   "devDependencies": {
+    "@playwright/test": "^1.48.2",
+    "@types/node": "^22.9.0",
     "cypress": "^13.2.0",
+    "playwright": "^1.48.2",
     "puppeteer": "^21.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
